@@ -9,6 +9,8 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
+import User from "./model/user.js";
+import { dataUser } from "./data/index.js";
 
 dotenv.config(".");
 const app = express();
@@ -18,6 +20,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
@@ -32,5 +35,6 @@ mongoose
   })
   .then(() => {
     app.listen(port, () => console.log(`Server Port ${port}`));
+    // User.insertMany(dataUser);
   })
   .catch((err) => console.log(`Something went wrong${err}`));
