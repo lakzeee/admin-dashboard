@@ -11,6 +11,7 @@ import {
   ListItemText,
   Typography,
   useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import {
   SettingsOutlined,
@@ -92,17 +93,12 @@ const navItems = [
   },
 ];
 
-const Sidebar = ({
-  user,
-  drawerWidth,
-  isSidebarOpen,
-  setIsSidebarOpen,
-  isNonMobile,
-}) => {
+const Sidebar = ({ user, drawerWidth, isSidebarOpen, setIsSidebarOpen }) => {
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  const isNonMobile = useMediaQuery(theme.breakpoints.up("sm"));
 
   useEffect(() => {
     setActive(pathname.substring(1));
@@ -112,9 +108,9 @@ const Sidebar = ({
     <Box component="nav">
       {isSidebarOpen && (
         <Drawer
-          open={isSidebarOpen}
+          open={isNonMobile || !setIsSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
-          variant="persistent"
+          variant={isNonMobile ? "persistent" : "temporary"}
           anchor="left"
           sx={{
             width: drawerWidth,
