@@ -1,10 +1,10 @@
 import mg from "mongoose";
 
-const ProductStatSchema = new mg.Schema(
+const OverallStatSchema = new mg.Schema(
   {
-    productId: String,
+    totalCustomers: Number,
     yearlySalesTotal: Number,
-    yearlyTotalSoldUnit: Number,
+    yearlyTotalSoldUnits: Number,
     year: Number,
     monthlyData: [
       {
@@ -20,9 +20,13 @@ const ProductStatSchema = new mg.Schema(
         totalUnits: Number,
       },
     ],
+    salesByCategory: {
+      type: Map,
+      of: Number,
+    },
   },
   { timestamps: true }
 );
 
-const ProductStat = mg.model("ProductStat", ProductStatSchema);
-export default ProductStat;
+const OverallStat = mg.model("OverallStat", OverallStatSchema);
+export default OverallStat;

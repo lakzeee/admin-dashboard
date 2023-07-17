@@ -9,10 +9,11 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
-import User from "./model/user.js";
-import Product from "./model/product.js";
-import ProductStat from "./model/product-stat.js";
-import { dataUser, dataProduct, dataProductStat } from "./data/index.js";
+// import Transaction from "./model/transaction.js";
+// import OverallStat from "./model/overall-stat.js";
+// import AffiliateStat from "./model/affiliate-stat.js";
+// import { dataAffiliateStat } from "./data/index.js";
+// import ProductStat from "./model/product-stat.js";
 
 dotenv.config(".");
 const app = express();
@@ -27,7 +28,7 @@ app.use(cors());
 app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
-app.use("sales", salesRoutes);
+app.use("/sales", salesRoutes);
 
 const port = process.env.PORT || 9000;
 mongoose
@@ -37,5 +38,8 @@ mongoose
   })
   .then(() => {
     app.listen(port, () => console.log(`Server Port ${port}`));
+    // ProductStat.insertMany(dataProductStat);
+    // OverallStat.insertMany(dataOverallStat);
+    // AffiliateStat.insertMany(dataAffiliateStat);
   })
   .catch((err) => console.log(`Something went wrong${err}`));
